@@ -4,6 +4,8 @@ This repository explains how to retrieve the username and group of the current
 user when deploying a Shiny app using ShinyProxy. The corresponding app can be
 run in ShinyProxy and shows the available values.
 
+![Screenshot](.github/screenshots/screenshot.png)
+
 ## Using environment variables
 
 When ShinyProxy creates a container, it passes the username and groups to the
@@ -23,7 +25,7 @@ See [`app.r`](example/app.r) for a complete example.
 
 ## Using HTTP headers
 
-Since ShinyProxy 3.1.0, ShinyProxy adds the username (and groups) as HTTP
+Starting with version 3.1.0, ShinyProxy adds the username (and groups) as HTTP
 headers to every request sent to an app. This method is always supported, even
 when
 using [container pre-initialization and sharing](https://shinyproxy.io/documentation/configuration/#container-pre-initialization-and-sharing).
@@ -44,7 +46,7 @@ sudo docker pull openanalytics/shinyproxy-shiny-demo-auth
 ```
 
 The relevant Docker Hub repository can be found
-at <https://hub.docker.com/r/openanalytics/shinyproxy-shiny-demo-minimal>.
+at <https://hub.docker.com/r/openanalytics/shinyproxy-shiny-demo-auth>.
 
 To build the image from the Dockerfile, navigate into the root directory of this
 repository and run
@@ -70,5 +72,10 @@ proxy:
     - id: shiny-auth
       container-image: openanalytics/shinyproxy-shiny-demo-auth
 ```
+
+## References
+
+- [ShinyProxy.io](https://shinyproxy.io/)
+- [All demos](https://shinyproxy.io/documentation/demos/)
 
 **(c) Copyright Open Analytics NV, 2024.**

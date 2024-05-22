@@ -18,7 +18,7 @@ proxy:
       groups: mathematicians
   specs:
     - id: shiny-demo-auth
-      container-image: openanalytics/shinyproxy-shiny-demo-minimal
+      container-image: openanalytics/shinyproxy-shiny-demo-auth
 logging:
   file:
     name: shinyproxy.log
