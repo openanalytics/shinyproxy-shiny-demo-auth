@@ -1,4 +1,4 @@
-# ShinyProxy Template
+# ShinyProxy Authentication demo
 
 This repository explains how to retrieve the username and group of the current
 user when deploying a Shiny app using ShinyProxy. The corresponding app can be
