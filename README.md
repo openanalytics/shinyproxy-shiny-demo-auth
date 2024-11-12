@@ -73,6 +73,36 @@ proxy:
       container-image: openanalytics/shinyproxy-shiny-demo-auth
 ```
 
+## UTF-8 characters
+
+The HTTP standard specifies that
+only [printable ASCII characters](https://www.ascii-code.com/characters/printable-characters)
+are allowed in HTTP headers. Therefore, if a username contains any other
+character, the app may fail to start. This can be solved by encoding the values
+using [base64](https://en.wikipedia.org/wiki/Base64):
+
+```yaml
+proxy:
+  specs:
+    - id: shiny-auth
+      container-image: openanalytics/shinyproxy-shiny-demo-auth
+      add-default-http-headers: false
+      http_headers:
+        X-SP-UserId: "#{T(java.util.Base64).getEncoder().encodeToString(proxy.getRuntimeValue('SHINYPROXY_USERNAME').getBytes())}"
+        X-SP-UserGroups: "#{proxy.getRuntimeValue('SHINYPROXY_USERGROUPS')}"
+```
+
+Next, in R this values must be decoded using
+the [`base64enc`](https://cran.r-project.org/web/packages/base64enc/index.html)
+library:
+
+```R
+rawToChar(base64enc::base64decode(session$request$HTTP_X_SP_USERID))
+```
+
+The next version of ShinyProxy will ignore these headers and log a warning,
+see <https://github.com/openanalytics/shinyproxy/issues/533>.
+
 ## References
 
 - [ShinyProxy.io](https://shinyproxy.io/)
